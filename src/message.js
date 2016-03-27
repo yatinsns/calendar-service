@@ -1,7 +1,7 @@
 var create_message = function (text, type, title, source) {
-  var new_message = {};
-  new_message.text = text;
-  new_message.notification = text;
+  var message = {};
+  message.text = text;
+  message.notification = text;
   if (type === "webapp") {
     var content = {};
     content.type = type;
@@ -18,9 +18,9 @@ var create_message = function (text, type, title, source) {
     preview.height = 100;
 
     content.previews = [preview];
-    new_message.content = content;
+    message.content = content;
   }
-  return new_message;
+  return message;
 };
 
 exports.create_message = create_message;
