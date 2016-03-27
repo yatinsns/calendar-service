@@ -15,7 +15,7 @@ app.use(morgan('dev'));
 var eventRouter = express.Router();
 eventRouter.use(bodyParser.json());
 
-eventRouter.route('/event/:eventId')
+eventRouter.route('/app/:appId/event/:eventId/show')
 .get(function (req, res, next) {
   res.render('get_event', {
     title: "event-title",
@@ -24,11 +24,15 @@ eventRouter.route('/event/:eventId')
     start: "12:00PM",
     end: "1:00PM"
   });
-})
-.post(function (req, res, next) {
+});
+
+eventRouter.route('/app/:appId/event/:eventId/add')
+.get(function (req, res, next) {
   res.render('add_event');
-})
-.put(function (req, res, next) {
+});
+
+eventRouter.route('/app/:appId/event/:eventId/edit')
+.get(function (req, res, next) {
   res.render('edit_event', {
     title: "event-title",
     description: "event-description",
@@ -36,12 +40,9 @@ eventRouter.route('/event/:eventId')
     start: "12:00PM",
     end: "1:00PM"
   });
-})
-.delete(function (req, res, next) {
-  res.end('Deleting the event: ' + req.params.eventId);
 });
 
-app.use('/app/app_id', eventRouter);
+app.use('/', eventRouter);
 
 app.listen(port, hostname, function (){
   console.log('Server running...');
