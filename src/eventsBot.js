@@ -30,7 +30,7 @@ var CreateEventsBot = function () {
 	}
       });
     } else {
-      callback(new Error('Unknown message'));
+      callback(new Error('Unknown command'));
     }
   };
 };
