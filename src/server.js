@@ -13,8 +13,8 @@ router.use(bodyParser.json());
 router.route('/').post(function (request, response, next) {
   eventsBot.parseCommand(request.body.message, function (error, result) {
     if (error) {
-      reponse.writeHead(200, {'Content-Type': 'text/plain'});
-      response.end('Unknown message')
+      response.writeHead(200, {'Content-Type': 'text/plain'});
+      response.end(error.message);
     } else {
       response.writeHead(200, {'Content-Type': 'text/plain'});
       response.end(result);
