@@ -2,7 +2,7 @@ var express = require('express');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var eventsBot = require('./eventsBot');
-var Message = require('./message');
+var message = require('./message');
 
 var PORT = 8000;
 var HOSTNAME = 'localhost';
@@ -13,15 +13,15 @@ var router = express.Router();
 router.use(bodyParser.json());
 router.route('/').post(function (request, response, next) {
   eventsBot.parseCommand(request.body.message, function (error, result) {
+    var new_message;
     if (error) {
       response.writeHead(200, {'Content-Type': 'application/json'});
-      var message = new Message(error.message);
-      response.end(JSON.stringify(message));
+      new_message = message.create_message(error.message);
     } else {
       response.writeHead(200, {'Content-Type': 'application/json'});
-      var message = new Message(result);
-      response.end(JSON.stringify(message));
+      new_message = message.create_message(result.text, result.type, result.title, result.source);
     }
+    response.end(JSON.stringify(new_message));
   });
 });
 
