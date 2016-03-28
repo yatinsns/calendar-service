@@ -17,6 +17,16 @@ var create_message = function (text, type, title, source) {
     preview.height = "260";
 
     content.previews = [preview];
+
+    var action1 = {};
+    action1.type = "view";
+    action1.placement = "modal";
+
+    var action2 = {};
+    action2.type = "forward";
+
+    content.actions = [action1, action2];
+
     message.content = content;
   }
   return message;
