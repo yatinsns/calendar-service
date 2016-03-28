@@ -14,8 +14,7 @@ var create_message = function (text, type, title, source) {
     var preview = {};
     preview.mime_type = "text/html";
     preview.source = source;
-    preview.width = 100;
-    preview.height = 100;
+    preview.height = "260";
 
     content.previews = [preview];
     message.content = content;
