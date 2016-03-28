@@ -9,6 +9,10 @@ var create_result = function(text, type, title, source) {
   return new_result;
 };
 
+var absolute_web_server_url = function (relative_url) {
+  return process.env.WEB_SERVER_URL + relative_url;
+}
+
 var CreateEventsBot = function () {
   this.extractEventId = function(command, format, callback) {
     var id = command.match(format)[1];
@@ -21,15 +25,24 @@ var CreateEventsBot = function () {
   this.parseCommand = function (command, callback) {
     console.log('Parsing command : ' + JSON.stringify(command));
     if (command.match(/^add event$/i)) {
-      callback(null, create_result('Please enter new event details'));
+      callback(null, create_result('Please enter new event details',
+	    'webapp',
+	    'Add event',
+	    absolute_web_server_url('/app/app_id/event/1234/add')));
     } else if (command.match(/^events$/i)) {
-      callback(null, create_result('Will be listing all events'));
+      callback(null, create_result('Will be listing all events',
+	    'webapp',
+	    'Latest Event',
+	    absolute_web_server_url('/app/app_id/event/1234/show')));
     } else if (command.match(/^edit event (.*)/i)) {
       this.extractEventId(command, /^edit event (.*)/i, function (error, id) {
 	if (error) {
 	  callback(new Error('id not found'));
 	} else {
-	  callback(null, create_result('Will be editing event with id: ' + id));
+	  callback(null, create_result('Will be editing event with id: ' + id,
+	      'webapp',
+	      'Edit event',
+	      absolute_web_server_url('/app/app_id/event/1234/edit')));
 	}
       });
     } else if (command.match(/^delete event (.*)/i)) {
