@@ -1,7 +1,6 @@
 # Calendar Service
 
-- Manages calendar events
-- Triggers notifications for calendar events
+This is a node.js training project. Intended to work along with [Flock](https://www.flock.co).
 
 # Setup
 
